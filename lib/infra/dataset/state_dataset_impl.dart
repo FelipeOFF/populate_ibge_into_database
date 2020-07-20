@@ -39,7 +39,7 @@ class StateDatasetImpl implements IStateDataset {
       'insert into ${StateColumns.TABLE_NAME} (${StateColumns.ID}, ${StateColumns.STATE}) value(?, ?);',
       [
         state.id,
-        state.state,
+        state.sigla,
       ],
     );
     return results.insertId;

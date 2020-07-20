@@ -39,7 +39,7 @@ class CityDatasetImpl implements ICityDataset {
       'insert into ${CityColumns.TABLE_NAME} (${CityColumns.ID}, ${CityColumns.CITIE}) value(?, ?);',
       [
         city.id,
-        city.citie,
+        city.nome,
       ],
     );
     return results.insertId;

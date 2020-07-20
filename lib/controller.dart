@@ -20,22 +20,6 @@ ICityAndStateRepository iCityAndStateRepository = CityAndStateRepositoryImpl(
     iCitieAndStateDataset, iCitieDataset, iStateDataset);
 
 Future<void> teste() async {
-  var value = await iCityAndStateRepository.insertCitiesAndState(CitieAndState(
-    state: State(
-      id: 45,
-      state: 'SP',
-    ),
-    cities: <City>[
-      City(
-        id: 24,
-        citie: 'São Paulo',
-      ),
-    ],
-  ));
-  print('Value ${value}');
-  var result = await iCitieAndStateDataset.getAllCitieAndState();
-  print(result);
-
   await db.close();
 }
 

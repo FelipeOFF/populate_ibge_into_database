@@ -41,7 +41,7 @@ class CityAndStateRepositoryImpl implements ICityAndStateRepository {
 
   @override
   Future<City> insertCity(City city) async {
-    if (city.citie == null) {
+    if (city.nome == null) {
       throw ParameterIsNullException('City is null');
     } else {
       await _cityDataset.insertCity(city);
@@ -51,7 +51,7 @@ class CityAndStateRepositoryImpl implements ICityAndStateRepository {
 
   @override
   Future<State> insertState(State state) async {
-    if (state.state == null) {
+    if (state.sigla == null) {
       throw ParameterIsNullException('State is null');
     } else {
       await _stateDataset.insertState(state);

@@ -62,8 +62,8 @@ class CitieAndStateDatasetImpl implements ICitieAndStateDataset {
   List<CitieAndState> _fromRow(Results results) {
     var result = results.fold(<State, List<City>>{},
         (Map<State, List<City>> previousValue, row) {
-      var key = State(id: row[2], state: row[3]);
-      var city = City(id: row[0], citie: row[1]);
+      var key = State(id: row[2], sigla: row[3]);
+      var city = City(id: row[0], nome: row[1]);
       if (previousValue.containsKey(key)) {
         previousValue[key].add(city);
       } else {
