@@ -1,10 +1,10 @@
-import 'package:desafio_mysql_with_dio/infra/dataset/i_citie_and_state_dataset.dart';
-import 'package:desafio_mysql_with_dio/infra/dataset/i_city_dataset.dart';
-import 'package:desafio_mysql_with_dio/infra/dataset/i_state_dataset.dart';
 import 'package:desafio_mysql_with_dio/infra/entry/state.dart';
 import 'package:desafio_mysql_with_dio/infra/entry/city.dart';
 import 'package:desafio_mysql_with_dio/infra/entry/citie_and_state.dart';
 import 'package:desafio_mysql_with_dio/infra/exception/parameter_is_null_exception.dart';
+import 'package:desafio_mysql_with_dio/infra/local/dataset/i_citie_and_state_dataset.dart';
+import 'package:desafio_mysql_with_dio/infra/local/dataset/i_city_dataset.dart';
+import 'package:desafio_mysql_with_dio/infra/local/dataset/i_state_dataset.dart';
 
 import 'i_city_and_state_repository.dart';
 
