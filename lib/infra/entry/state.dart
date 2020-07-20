@@ -2,27 +2,27 @@ import 'dart:convert';
 
 class State {
   int id;
-  String state;
+  String sigla;
 
   State({
     this.id,
-    this.state,
+    this.sigla,
   });
 
   State copyWith({
     int id,
-    String state,
+    String sigla,
   }) {
     return State(
       id: id ?? this.id,
-      state: state ?? this.state,
+      sigla: sigla ?? this.sigla,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'state': state,
+      'sigla': sigla,
     };
   }
 
@@ -31,7 +31,7 @@ class State {
 
     return State(
       id: map['id'],
-      state: map['state'],
+      sigla: map['sigla'],
     );
   }
 
@@ -40,21 +40,21 @@ class State {
   static State fromJson(String source) => fromMap(json.decode(source));
 
   @override
-  String toString() => 'State(id: $id, state: $state)';
+  String toString() => 'State(id: $id, sigla: $sigla)';
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is State && o.id == id && o.state == state;
+    return o is State && o.id == id && o.sigla == sigla;
   }
 
   @override
-  int get hashCode => id.hashCode ^ state.hashCode;
+  int get hashCode => id.hashCode ^ sigla.hashCode;
 }
 
 class StateColumns {
   static final String TABLE_NAME = 'state';
   static final String ID = 'id';
-  static final String STATE = 'state';
+  static final String STATE = 'sigla';
 }
