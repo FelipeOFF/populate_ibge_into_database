@@ -27,8 +27,7 @@ class DB {
   }
 
   Future<void> close() async {
-    var result = await _connection?.close();
+    await _connection?.close();
     _connection = null;
-    return result;
   }
 }
