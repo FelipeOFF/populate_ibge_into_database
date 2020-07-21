@@ -4,4 +4,5 @@ abstract class IStateDataset {
   Future<int> insertState(State state);
   Future<List<State>> getAllState();
   Future<State> getStateById(int id);
+  Future<bool> checkStateExist(int id);
 }

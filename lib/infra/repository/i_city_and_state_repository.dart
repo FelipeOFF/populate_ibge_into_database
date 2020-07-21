@@ -3,6 +3,8 @@ import 'package:desafio_mysql_with_dio/infra/entry/city.dart';
 import 'package:desafio_mysql_with_dio/infra/entry/state.dart';
 
 abstract class ICityAndStateRepository {
+  Future<List<CitieAndState>> getCitiesAndStatesEvent();
+  Future<List<City>> getCitiesByState(int id);
   Future<City> insertCity(City city);
   Future<State> insertState(State state);
   Future<CitieAndState> insertCitiesAndState(CitieAndState citieAndState);

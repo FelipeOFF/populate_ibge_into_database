@@ -5,6 +5,8 @@ import 'package:desafio_mysql_with_dio/infra/exception/parameter_is_null_excepti
 import 'package:desafio_mysql_with_dio/infra/local/dataset/i_citie_and_state_dataset.dart';
 import 'package:desafio_mysql_with_dio/infra/local/dataset/i_city_dataset.dart';
 import 'package:desafio_mysql_with_dio/infra/local/dataset/i_state_dataset.dart';
+import 'package:desafio_mysql_with_dio/infra/network/eventdataset/i_city_event_dataset.dart';
+import 'package:desafio_mysql_with_dio/infra/network/eventdataset/i_state_event_dataset.dart';
 
 import 'i_city_and_state_repository.dart';
 
@@ -12,11 +14,15 @@ class CityAndStateRepositoryImpl implements ICityAndStateRepository {
   final ICitieAndStateDataset _citieAndState;
   final ICityDataset _cityDataset;
   final IStateDataset _stateDataset;
+  final ICityEventDataset _cityEventDataset;
+  final IStateEventDataset _stateEventDataset;
 
   CityAndStateRepositoryImpl(
     this._citieAndState,
     this._cityDataset,
     this._stateDataset,
+    this._cityEventDataset,
+    this._stateEventDataset,
   );
 
   @override
@@ -63,4 +69,32 @@ class CityAndStateRepositoryImpl implements ICityAndStateRepository {
   Future<List<CitieAndState>> getCitiesAndStates() {
     return _citieAndState.getAllCitieAndState();
   }
+
+  @override
+  Future<List<CitieAndState>> getCitiesAndStatesEvent() async {
+    var citiesAndStatesRegisterred = await getCitiesAndStates();
+
+    if (citiesAndStatesRegisterred.isEmpty) {
+      var states = await _stateEventDataset.getStates();
+
+      for (final state in states) {
+        print('insert State ${state.sigla}');
+        await insertState(state);
+        print('Get Cities from state');
+        var cities = await getCitiesByState(state.id);
+        for (final city in cities) {
+          print('Insert city ${city.nome}');
+          await insertCity(city);
+        }
+      }
+
+      return await getCitiesAndStates();
+    } else {
+      return citiesAndStatesRegisterred;
+    }
+  }
+
+  @override
+  Future<List<City>> getCitiesByState(int id) async =>
+      await _cityEventDataset.getCitiesByState(id);
 }
