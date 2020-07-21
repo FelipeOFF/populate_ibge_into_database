@@ -49,12 +49,12 @@ class CitieAndStateDatasetImpl implements ICitieAndStateDataset {
     var idState = citieAndState.state.id;
     var idsCitys = citieAndState.cities.map((c) => c.id).toList();
 
-    await Stream.fromIterable(idsCitys).asyncMap((cid) async {
-      return await connection.query(
+    for (var cid in idsCitys) {
+      await connection.query(
         'insert into ${CitieAndStateColumns.TABLE_NAME} (${CitieAndStateColumns.ID_STATE}, ${CitieAndStateColumns.ID_CITIE}) value(?, ?);',
         [idState, cid],
       );
-    }).toSet();
+    }
 
     return idState;
   }

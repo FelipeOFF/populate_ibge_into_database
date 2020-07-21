@@ -79,13 +79,17 @@ class CityAndStateRepositoryImpl implements ICityAndStateRepository {
 
       for (final state in states) {
         print('insert State ${state.sigla}');
-        await insertState(state);
+        var stateSaved = await insertState(state);
         print('Get Cities from state');
         var cities = await getCitiesByState(state.id);
+        var listOfCitiesSaved = <City>[];
         for (final city in cities) {
           print('Insert city ${city.nome}');
-          await insertCity(city);
+          var citySaved = await insertCity(city);
+          listOfCitiesSaved.add(citySaved);
         }
+        await insertCitiesAndState(
+            CitieAndState(state: stateSaved, cities: listOfCitiesSaved));
       }
 
       return await getCitiesAndStates();
