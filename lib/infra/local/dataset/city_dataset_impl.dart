@@ -21,7 +21,7 @@ class CityDatasetImpl implements ICityDataset {
   Future<City> getCityById(int id) async {
     var connection = await _db.conn();
     var result = await connection.query(
-      'select id, citie from ${CityColumns.TABLE_NAME} where id = ?;',
+      'select ${CityColumns.ID}, ${CityColumns.CITIE} from ${CityColumns.TABLE_NAME} where id = ?;',
       [id],
     );
     var first = result.first;
@@ -34,14 +34,24 @@ class CityDatasetImpl implements ICityDataset {
 
   @override
   Future<int> insertCity(City city) async {
-    var connection = await _db.conn();
-    var results = await connection.query(
-      'insert into ${CityColumns.TABLE_NAME} (${CityColumns.ID}, ${CityColumns.CITIE}) value(?, ?);',
-      [
-        city.id,
-        city.nome,
-      ],
-    );
-    return results.insertId;
+    if (await checkCityExist(city.id)) {
+      return city.id;
+    } else {
+      var connection = await _db.conn();
+      var results = await connection.query(
+        'insert into ${CityColumns.TABLE_NAME} (${CityColumns.ID}, ${CityColumns.CITIE}) value(?, ?);',
+        [
+          city.id,
+          city.nome,
+        ],
+      );
+      return results.insertId;
+    }
+  }
+
+  @override
+  Future<bool> checkCityExist(int id) async {
+    var result = await getCityById(id);
+    return result != null;
   }
 }
